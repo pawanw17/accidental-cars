@@ -52,6 +52,7 @@
     //}
     var obj;
      var service;
+     var pyrmont = {lat:12.82082 , lng: 80.038229};
     function pawan()
     {
      // var obj;
@@ -60,7 +61,12 @@
         
       //  var loc=msg();
 
-    sock.onmessage=function(event){
+          sock.onopen=function(event){
+    //  alert("switched on");
+      setTimeout(function(){
+        sock.send(JSON.stringify(pyrmont));},1000);
+      };
+          sock.onmessage=function(event){
       //console.log(event);
       // try{
 
