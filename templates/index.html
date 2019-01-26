@@ -51,6 +51,7 @@
     //return obj;}
     //}
     var obj;
+     var service;
     function pawan()
     {
      // var obj;
@@ -124,13 +125,19 @@
             center: obj,
             radius: 10000
           });
+        
         infowindow = new google.maps.InfoWindow();
-        var service = new google.maps.places.PlacesService(map);
+       
+
+       // service.getDetails(request);
+        service= new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: obj,
           radius: 10000,
           type: ['hospital']
         }, callback);
+
+        // service.getDetails(request);
       }
 
       function callback(results, status) {
@@ -147,11 +154,13 @@
           map: map,
           position: place.geometry.location
         });
-
+        var request = { reference: place.reference };
+    service.getDetails(request, function(details, status) {
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(place.name);
+          infowindow.setContent('<div><b>'+place.name+'</b><br>'+details.adr_address+'<br>'+details.formatted_phone_number+'<br>'+details.website+'</div>');
           infowindow.open(map, this);
         });
+      });
       }
     </script>
   </head>
