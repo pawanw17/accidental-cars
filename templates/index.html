@@ -19,96 +19,39 @@
     </style>
     <div id="log"></div>
     <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-      var map;
-      var infowindow;
-              // var log = document.getElementById('log');
-      // var sock=new WebSocket("ws://localhost:5001");
-      // var log = document.getElementById('log');
-      // var obj;
-      // sock.onmessage=function(event){
-      // //console.log(event);
-      // obj=JSON.parse(event.data);
-       // log.innerHTML+=obj.topic+"<br>";
-       // log.innerHTML+="hello"+"<br>";
-      // console.log(event);
-    // <!-- }  -->
-    
-    // var sock=new WebSocket("ws://localhost:5001");
-    //     var log = document.getElementById('log');
-    // function msg()
-    // {var obj;
-    //     sock.onmessage=function(event){
-    //   //console.log(event);
-    //   obj=JSON.parse(event.data);
-    //   log.innerHTML+=obj.lat+" , "+obj.lng+"<br>";
-      
-    //   console.log(obj);
-    //  console.log(pyrmont);
-    //return obj;}
-    //}
-    var obj;
+     
+     var map;
+     var infowindow;
+   
+     var obj;
      var service;
      var pyrmont = {lat:12.82082 , lng: 80.038229};
     function pawan()
     {
-     // var obj;
+     
         var sock=new WebSocket("ws://192.168.1.5:5001");
         var log = document.getElementById('log');
         
-      //  var loc=msg();
+      
 
           sock.onopen=function(event){
-    //  alert("switched on");
+    
       setTimeout(function(){
         sock.send(JSON.stringify(pyrmont));},1000);
       };
           sock.onmessage=function(event){
-      //console.log(event);
-      // try{
-
-
+      
       obj=JSON.parse(event.data);
       log.innerHTML+=obj.lat+" , "+obj.lng+"<br>";
       
       console.log(obj);
-     // console.log(pyrmont);
+     
      initMap(obj);
 
     }
 
   }
       function initMap(obj) {
-    //     var pyrmont = {lat:12.82082 , lng: 80.038229};
-    //      var obj;
-    //     var sock=new WebSocket("ws://localhost:5001");
-    //     var log = document.getElementById('log');
-        
-    //   //  var loc=msg();
-
-    // sock.onmessage=function(event){
-    //   //console.log(event);
-    //   // try{
-
-
-    //   obj=JSON.parse(event.data);
-    //   log.innerHTML+=obj.lat+" , "+obj.lng+"<br>";
-      
-    //   console.log(obj);
-    //  console.log(pyrmont);
-    
-    // }
-    // catch(err){
-     // console.log(err);
-    //}}
-      // }
-      // log.innerHTML+="hello"+"<br>";
-     // console.log(loc);
-
-      // console.log(loc);
         var image='http://maps.google.com/mapfiles/kml/paddle/blu-blank.png';
         map = new google.maps.Map(document.getElementById('map'), {
           center: obj,
@@ -118,7 +61,6 @@
         position: obj,
         map: map,
         title: obj["lat"] +", "+ obj["lng"],
-        //label: place["place_name"] +", "+ place["admin_name1"],
         icon : image
         });
          var cityCircle = new google.maps.Circle({
@@ -133,9 +75,6 @@
           });
         
         infowindow = new google.maps.InfoWindow();
-       
-
-       // service.getDetails(request);
         service= new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: obj,
@@ -143,7 +82,6 @@
           type: ['hospital']
         }, callback);
 
-        // service.getDetails(request);
       }
 
       function callback(results, status) {
